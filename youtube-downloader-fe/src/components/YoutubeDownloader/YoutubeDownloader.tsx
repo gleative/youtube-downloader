@@ -2,23 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { YoutubeDownloadForm } from './molecules/YoutubeDownloadForm';
-
-interface VideoInfo {
-  title: string;
-  description: string;
-  duration: string; // 00:00:00
-  uploader: string;
-  thumbnail: string;
-  size: string;
-}
+import VideoInfo from './molecules/VideoInfo';
+import VidInfo from './model/VidInfo';
 
 const YoutubeDownloader: React.FC = () => {
   const [ytUrl, setYtUrl] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
-  const [videoInfo, setVideoInfo] = React.useState<VideoInfo>();
+  const [videoInfo, setVideoInfo] = React.useState<VidInfo | null>();
 
   const downloadFromUrl = () => {
     setIsLoading(true);
+    setVideoInfo(null);
     console.log('Try to send url: ', ytUrl);
 
     // fetch('http://localhost:9000/ytDownloaderApi').then((res) => res.text());
@@ -38,10 +32,7 @@ const YoutubeDownloader: React.FC = () => {
       {isLoading && <h4 style={{ color: 'slateblue' }}>Loading.....</h4>}
       <YoutubeDownloadForm downloadVideo={downloadFromUrl} setYtUrl={setYtUrl} />
 
-      <h2>{videoInfo?.title}</h2>
-      <p>{videoInfo?.duration}</p>
-      <p>{videoInfo?.uploader}</p>
-      <img src={videoInfo?.thumbnail} alt="video thumbnail" width="200px" />
+      {videoInfo && <VideoInfo videoInfo={videoInfo} />}
     </Container>
   );
 };

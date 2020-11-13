@@ -1,1 +1,4 @@
 node_modules
+
+# Ignore all files with .mp3
+*.mp3 
