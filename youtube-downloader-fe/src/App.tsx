@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
+import styled from 'styled-components';
 import './App.css';
+import YoutubeDownloader from './components/YoutubeDownloader/YoutubeDownloader';
+
+// TODO: Se video om express og prøv ordne kobling! Se yt video du har i fane
+// TODO: Hvis det fungerer (plz) -> last ned video og converter til mp3
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <header></header>
+      <main>
+        <YoutubeDownloader />
+      </main>
+    </Container>
   );
 }
 
 export default App;
+
+// TODO: Legg i shared mappe?
+const Container = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+`;
