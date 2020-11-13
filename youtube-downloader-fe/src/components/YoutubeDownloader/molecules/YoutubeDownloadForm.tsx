@@ -6,20 +6,19 @@ import UrlInput from '../atoms/UrlInput';
 
 interface Props {
   downloadVideo: () => void;
+  setYtUrl: (url: string) => void;
 }
 
-export const YoutubeDownloadForm: React.FC<Props> = ({ downloadVideo }) => {
+export const YoutubeDownloadForm: React.FC<Props> = ({ downloadVideo, setYtUrl }) => {
   const submitToForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // ? Prevent this shit first... then we run func from parent
-
-    alert('Download esketit');
 
     downloadVideo();
   };
 
   return (
     <Form onSubmit={submitToForm}>
-      <UrlInput />
+      <UrlInput setYtUrl={setYtUrl} />
       <DownloadBtn />
     </Form>
   );

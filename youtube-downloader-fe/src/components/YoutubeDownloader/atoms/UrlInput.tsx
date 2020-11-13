@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const UrlInput: React.FC = () => {
-  return <Input placeholder="Insert Youtube url here ..." />;
+interface Props {
+  setYtUrl: (url: string) => void;
+}
+
+const UrlInput: React.FC<Props> = ({ setYtUrl }) => {
+  return <Input placeholder="Insert Youtube url here ..." onChange={(e) => setYtUrl(e.target.value)} />;
 };
 
 export default UrlInput;

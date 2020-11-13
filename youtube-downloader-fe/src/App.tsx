@@ -7,10 +7,24 @@ import YoutubeDownloader from './components/YoutubeDownloader/YoutubeDownloader'
 // TODO: Hvis det fungerer (plz) -> last ned video og converter til mp3
 
 function App() {
+  const [apiRes, setApiRes] = React.useState('');
+
+  const apiCall = () => {
+    fetch('http://localhost:9000/testAPI')
+      .then((res) => res.text())
+      .then((res) => setApiRes(res))
+      .catch((err) => setApiRes('ERROR calling API: ' + err));
+  };
+
+  React.useEffect(() => {
+    apiCall();
+  }, []);
+
   return (
     <Container>
       <header></header>
       <main>
+        <p>{apiRes}</p>
         <YoutubeDownloader />
       </main>
     </Container>
