@@ -4,6 +4,10 @@ let router = express.Router();
 let fs = require('fs');
 let youtubedl = require('youtube-dl');
 
+converter.setFfmpegPath('/Users/glennch/Downloads/ffmpeg', function (err) {
+  if (err) throw err;
+});
+
 router.get('/', function (req, res, nextFunc) {
   res.send(`Hei hei`);
 });
@@ -11,7 +15,6 @@ router.get('/', function (req, res, nextFunc) {
 // For å kjøre denne http request, så må url være "localhost:9000/ytdownloaderApi"
 router.post('/', function (req, res, nextFunc) {
   const url = req.body.url;
-  let videoName = 'what';
 
   console.log('VALUE: ', url);
 
@@ -38,7 +41,9 @@ router.post('/', function (req, res, nextFunc) {
     res.send(videoInfo);
   });
 
-  video.pipe(fs.createWriteStream(videoName + '-hhh.mp3'));
+  video.pipe(fs.createWriteStream('sound.mp3'));
+
+  convertToMp3();
 
   // res.send(`I received your POST request: ${videoName}`);
 
@@ -46,6 +51,24 @@ router.post('/', function (req, res, nextFunc) {
 
   // res.send(`I received your POST request: ${req.body.url}`); // Bruk denne til å sende tilbake yt video????
 });
+
+router.post('/rename', function (req, res) {
+  const newName = req.body.name;
+
+  fs.rename(
+    '/Users/glennch/Documents/Proggis/own-play/youtube-downloader/youtube-downloader-be/sound.mp3',
+    '/Users/glennch/Documents/Proggis/own-play/youtube-downloader/youtube-downloader-be/' + newName + '.mp3',
+    function (err) {
+      if (err) console.log('API ERROR RENAME: ', err);
+    }
+  );
+
+  res.send('RENAMED request ran!');
+});
+
+function convertToMp3() {
+  // TODO: Bruk ffmpeg
+}
 
 // Export - Se "TESTAPI.js" for eksempel
 module.exports = router;
