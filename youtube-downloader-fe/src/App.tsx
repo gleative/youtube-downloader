@@ -24,7 +24,9 @@ function App() {
     <Container>
       <header></header>
       <main>
-        <p>{apiRes}</p>
+        <AlertBox>
+          <AlertBoxMsg>{apiRes}</AlertBoxMsg>
+        </AlertBox>
         <YoutubeDownloader />
       </main>
     </Container>
@@ -39,4 +41,19 @@ const Container = styled.div`
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+`;
+
+const AlertBox = styled.div`
+  background-color: #f33939;
+  color: white;
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const AlertBoxMsg = styled.p`
+  padding: 1em;
+  font-weight: bold;
+  font-size: 1.5em;
 `;
